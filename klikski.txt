@@ -1,0 +1,7 @@
+Juris: 78, 87
+Peteris: 67, 45
+Jānis: 45, 89
+Lienīte: 69, 79
+Jāzeps: 45, 73
+Anna: 75, 95
+Jevgēnijs: 56, 34
