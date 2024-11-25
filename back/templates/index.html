@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link href="static/css/style.css" rel="stylesheet">
-  <title>Atmiņas spēle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperatūras Ieraksti</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <div class="wrapper">
-    <div class="header">
-      <h1>Atmiņas spēle</h1>
-      <ul>
-        <li>
-          <a href="/">Sākums</a>
-        </li>
-        <li>
-          <a href="game">Spēle</a>
-        </li>
-        <li>
-          <a href="top">Tops</a>
-        </li>
-        <li>
-          <a href="about">Par</a>
-        </li>
-      </ul>
-    </div> <!--Beidzas header-->
-    <div class="content">
-      <h3>Noteikumi</h3>
-      <p>Sameklē vienādo figūru pārus ar pēc iespējas mazāko klikšīņāšanu skaitu.</p>
-      <h3>Spēlētāja pieteikšanās</h3>
-      Vārds:<input id="vards"/>
-      <button onclick="saktSpeli()">Sāk spēli</button>
+    <h1>Temperatūras Ieraksti</h1>
+    <form id="tempForm">
+        <label for="date">Datums:</label>
+        <input type="date" id="date" required>
+        <label for="min_temp">Mazākā temperatūra:</label>
+        <input type="number" step="0.1" id="min_temp" required>
+        <label for="max_temp">Lielākā temperatūra:</label>
+        <input type="number" step="0.1" id="max_temp" required>
+        <button type="submit">Pievienot</button>
+    </form>
 
+    <h2>Temperatūru saraksts</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Datums</th>
+                <th>Mazākā temperatūra</th>
+                <th>Lielākā temperatūra</th>
+                <th>Vidējā temperatūra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- JavaScript pievienos rindas šeit -->
+        </tbody>
+    </table>
 
-    </div> <!--Beidzas content-->
+    <p id="avgTemp">Vidējā temperatūra visām dienām: </p>
 
-  </div> <!--Beidzas wrapper-->
-<script src="static/js/sakums.js"></script>
-
+    <script src="/static/script.js"></script>
 </body>
 </html>
