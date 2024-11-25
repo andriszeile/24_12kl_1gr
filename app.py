@@ -1,27 +1,38 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
+import json
+import os
 
-#app = Flask(__name__)
+app = flask(__name__)
+DATA_FILE = "data.json"
 
-app = Flask('app')
+#JSON faila ielāde un inicalizācija
+def load_data():
+    if not os.path.exists(DATA_FILE):
+        with open(DATA_FILE, 'w') as f:
+            json.dump([], f)
+    with open(DATA_FILE, 'r') as f:
+        return json.load(f)
 
+#Datu saglabāšana JSON failā
+def save_data(data):
+    with open(DATA_FILE, 'w') as f:
+        json.dump(data, f, indent=4)
 
-@app.route('/')
+#mājaslapas palaišana
+@app.route("/")
 def index():
     return render_template("index.html")
 
+#API - nolasa visus ierakstus
+@app.route("/api/data")
+def get_data():
+    data = load_data()
+    return jsonify(data)
 
-@app.route('/game')
-def game():
-    return render_template("game.html")
+#API - pievieno jaunu ierakstu
 
-@app.route('/top')
-def top():
-    return render_template("top.html")
 
-@app.route('/about')
-def about():
-    return render_template("about.html")
 
-if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=80)
 
+if __name__ == "__main__":
+    app.run(debug=True)
