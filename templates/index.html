@@ -8,41 +8,33 @@
 </head>
 <body>
     <h1>Temperatūras Ieraksti</h1>
-    <form method="POST">
+    <form id="tempForm">
         <label for="date">Datums:</label>
-        <input type="date" id="date" name="date" required>
+        <input type="date" id="date" required>
         <label for="min_temp">Mazākā temperatūra:</label>
-        <input type="number" step="0.1" id="min_temp" name="min_temp" required>
+        <input type="number" step="0.1" id="min_temp" required>
         <label for="max_temp">Lielākā temperatūra:</label>
-        <input type="number" step="0.1" id="max_temp" name="max_temp" required>
+        <input type="number" step="0.1" id="max_temp" required>
         <button type="submit">Pievienot</button>
     </form>
 
     <h2>Temperatūru saraksts</h2>
-    {% if data %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Datums</th>
-                    <th>Mazākā temperatūra</th>
-                    <th>Lielākā temperatūra</th>
-                    <th>Vidējā temperatūra</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in data %}
-                <tr>
-                    <td>{{ entry.date }}</td>
-                    <td>{{ entry.min_temp }}</td>
-                    <td>{{ entry.max_temp }}</td>
-                    <td>{{ (entry.min_temp + entry.max_temp) / 2 }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <p>Vidējā temperatūra visām dienām: {{ avg_temp }}</p>
-    {% else %}
-        <p>Nav ievadītu datu.</p>
-    {% endif %}
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Datums</th>
+                <th>Mazākā temperatūra</th>
+                <th>Lielākā temperatūra</th>
+                <th>Vidējā temperatūra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- JavaScript pievienos rindas šeit -->
+        </tbody>
+    </table>
+
+    <p id="avgTemp">Vidējā temperatūra visām dienām: </p>
+
+    <script src="/static/script.js"></script>
 </body>
 </html>

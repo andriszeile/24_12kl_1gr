@@ -18,37 +18,41 @@ def save_data(data):
     with open(DATA_FILE, 'w') as f:
         json.dump(data, f, indent=4)
 
-# Mājas lapa ar datu ievades formu un datu tabulu
-@app.route("/", methods=["GET", "POST"])
+# Mājas lapa
+@app.route("/")
 def index():
-    if request.method == "POST":
-        date = request.form.get("date")
-        min_temp = request.form.get("min_temp")
-        max_temp = request.form.get("max_temp")
+    return render_template("index.html")
 
-        # Validācija
-        if not date or not min_temp or not max_temp:
-            return "Visi lauki ir obligāti!", 400
-        
-        try:
-            min_temp = float(min_temp)
-            max_temp = float(max_temp)
-        except ValueError:
-            return "Temperatūrai jābūt skaitlim!", 400
-
-        # Saglabāt ierakstu
-        data = load_data()
-        data.append({"date": date, "min_temp": min_temp, "max_temp": max_temp})
-        save_data(data)
-
-    # Datu ielāde un vidējās temperatūras aprēķins
+# API, lai iegūtu visus ierakstus
+@app.route("/api/data", methods=["GET"])
+def get_data():
     data = load_data()
-    avg_temp = (
-        sum((entry["min_temp"] + entry["max_temp"]) / 2 for entry in data) / len(data)
-        if data else 0
-    )
+    return jsonify(data)
 
-    return render_template("index.html", data=data, avg_temp=avg_temp)
+# API, lai pievienotu jaunu ierakstu
+@app.route("/api/data", methods=["POST"])
+def add_data():
+    request_data = request.json
+    date = request_data.get("date")
+    min_temp = request_data.get("min_temp")
+    max_temp = request_data.get("max_temp")
+
+    # Validācija
+    if not date or min_temp is None or max_temp is None:
+        return jsonify({"error": "Visi lauki ir obligāti!"}), 400
+
+    try:
+        min_temp = float(min_temp)
+        max_temp = float(max_temp)
+    except ValueError:
+        return jsonify({"error": "Temperatūrai jābūt skaitlim!"}), 400
+
+    # Saglabāt ierakstu
+    data = load_data()
+    data.append({"date": date, "min_temp": min_temp, "max_temp": max_temp})
+    save_data(data)
+
+    return jsonify({"message": "Dati saglabāti veiksmīgi!"}), 201
 
 if __name__ == "__main__":
     app.run(debug=True)
