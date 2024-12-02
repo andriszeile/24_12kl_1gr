@@ -31,7 +31,7 @@ def get_data():
 
 #API - pievieno jaunu ierakstu
 
-
+#test
 
 
 if __name__ == "__main__":
