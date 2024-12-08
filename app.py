@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import json
 import os
 
-app = flask(__name__)
+app = Flask(__name__)   #bug Flask ar lielo
 DATA_FILE = "data.json"
 
 #JSON faila ielāde un inicalizācija

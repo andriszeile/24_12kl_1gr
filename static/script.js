@@ -47,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const payload = {
             date: date,
-            min_temp: parseFloat(minTemp);
-            max_temp: parseFloat(maxTemp);
+            min_temp: parseFloat(minTemp), //BUG ; vietā jābūt ,
+            max_temp: parseFloat(maxTemp), //BUG tas pats
         };
         //Datu nodošana Json
         const response = await fetch(apiUrl, {
@@ -57,20 +57,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(payload),
-            });
-            //Pārbauda vai uz tabulu aiziet dati
-            if (response.ok) {
-                form.reset();
-                loadTable();
-            } else {
-                const error = await response.json();
-                alert(error.error || "Kļūda saglabājot datus!");                
-            }
-        });
-        //Ielādēt tabulu
-        loadTable();
-
+        }); //BUGTālāk viss -1 atkāpe
+        //Pārbauda vai uz tabulu aiziet dati
+        if (response.ok) {
+            form.reset();
+            loadTable();
+        } else {
+            const error = await response.json();
+            alert(error.error || "Kļūda saglabājot datus!");                
+        }
     });
+    //Ielādēt tabulu
+    loadTable();
+
+    //BUG - liekais "});"
 
 
 });
