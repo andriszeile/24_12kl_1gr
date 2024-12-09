@@ -47,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const payload = {
             date: date,
-            min_temp: parseFloat(minTemp), //BUG ; vietā jābūt ,
-            max_temp: parseFloat(maxTemp), //BUG tas pats
+            min_temp: parseFloat(minTemp),
+            max_temp: parseFloat(maxTemp),
         };
         //Datu nodošana Json
         const response = await fetch(apiUrl, {
